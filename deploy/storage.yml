@@ -1,0 +1,31 @@
+version: '3.9'
+
+volumes:
+  pgs_data:
+  es_data:
+
+services:
+  postgres:
+    image: postgres:16.1-alpine
+    container_name: postgres
+    env_file: ../src/core/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgs_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    restart: always
+
+  elasticsearch:
+    image: elasticsearch:8.6.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    restart: always
