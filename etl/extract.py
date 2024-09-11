@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def read_csv_file(file_path: str) -> list | None:
-    """Читает данные из CSV файла."""
+    """Reads data from a CSV file."""
     try:
         data = []
 
@@ -23,7 +23,3 @@ def read_csv_file(file_path: str) -> list | None:
     except csv.Error as e:
         logger.error('Ошибка чтения файла: {}'.format(e))
         return None
-
-
-if __name__ == '__main__':
-    print(read_csv_file('data/posts.csv'))

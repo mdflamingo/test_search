@@ -1,10 +1,16 @@
 import uuid
+from dataclasses import dataclass, field
+from pydantic import BaseModel
 
-from pydantic import BaseModel, Field
 
-
-class Post(BaseModel):
-    id: uuid.UUID = uuid.uuid4()
+@dataclass
+class PostPG:
     rubrics: str
     text: str
     created_date: str
+    id: uuid.UUID = field(default_factory=uuid.uuid4)
+
+
+class PostES(BaseModel):
+    id: str
+    text: str

@@ -1,7 +1,7 @@
 version: '3.9'
 
 volumes:
-  pg_data:
+  pgs_data:
   es_data:
 
 services:
@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pgs_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
     restart: always
