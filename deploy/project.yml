@@ -1,0 +1,53 @@
+version: '3.9'
+
+volumes:
+  pgs_data:
+  es_data:
+
+services:
+  postgres:
+    image: postgres:16.1-alpine
+    container_name: postgres
+    env_file: ../src/core/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgs_data:/var/lib/postgresql/data
+
+    restart: always
+
+  elasticsearch:
+    image: elasticsearch:8.10.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    restart: always
+
+  fastapi:
+    container_name: fastapi
+    build: ../src
+    env_file:
+      - ../src/core/.env
+    restart: unless-stopped
+    expose:
+      - "8000"
+
+  nginx:
+    restart: unless-stopped
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/config:/etc/nginx/conf.d:ro
+    depends_on:
+      - fastapi
+      - postgres
+
