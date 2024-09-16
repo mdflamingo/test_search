@@ -15,7 +15,7 @@ def transform_data(dsl: dict) -> list:
 def get_data_from_postgres(dsl: dict) -> list:
     with open_postgres_conn_cursor(dsl) as pg_cursor:
         query = (
-            'SELECT * FROM content.posts'
+            'SELECT * FROM posts'
         )
 
         pg_cursor.execute(query)

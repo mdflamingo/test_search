@@ -14,9 +14,12 @@ DSL = {
     'port': settings.postgres_port
 }
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 def main() -> None:
-    logging.info('Starting ETL process...')
+    logger.info('Starting ETL process...')
 
     extracted_data = read_csv_file('data/posts.csv')
     load_to_postgres(DSL, extracted_data)
@@ -25,5 +28,5 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    logger.info('Starting ETL process...')
     main()

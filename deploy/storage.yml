@@ -13,12 +13,12 @@ services:
       - "5432:5432"
     volumes:
       - pgs_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
     restart: always
 
   elasticsearch:
-    image: elasticsearch:8.6.2
+    image: elasticsearch:8.10.2
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
