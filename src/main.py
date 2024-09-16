@@ -15,8 +15,6 @@ from core.logger import setup_root_logger
 @asynccontextmanager
 async def lifespan(fast_api: FastAPI):
     elastic.es = AsyncElasticsearch(hosts=[f'http://{config.settings.es_host}:{config.settings.es_port}'])
-    # elastic.es = AsyncElasticsearch(hosts=[f'http://127.0.0.1:{config.settings.es_port}'])
-
     await create_database()
     yield
     await elastic.es.close()

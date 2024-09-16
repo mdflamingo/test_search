@@ -7,6 +7,7 @@ PROJECT = deploy/project.yml
 project:
 	${DC} -f ${PROJECT} up --build -d
 
+
 .PHONY: stop-project
 stop-project:
 	${DC} -f ${PROJECT} stop

@@ -1,5 +1,5 @@
-from etl.contextmanager import open_postgres_conn_cursor
-from etl.models import PostES
+from contextmanager import open_postgres_conn_cursor
+from models import PostES
 
 
 def transform_data(dsl: dict) -> list:

@@ -1,7 +1,7 @@
 from psycopg2.extras import execute_batch
 
-from etl.contextmanager import open_postgres_conn_cursor
-from etl.models import PostPG
+from contextmanager import open_postgres_conn_cursor
+from models import PostPG
 
 
 def load_to_postgres(dsl, data: list) -> None:
